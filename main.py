@@ -1,3 +1,5 @@
+from PIL import Image
+import numpy as np
 import matplotlib.pyplot as plt
 from reader import read_image_file
 from utils import rgb2gray
@@ -53,6 +55,9 @@ if __name__ == "__main__":
             element = histogram.get(key)
             temp.append(element["normalized_sum"])
         newPix.append(temp)
+
+    img = Image.fromarray(np.asarray(newPix))
+    img.show()
 
     f, plt_array = plt.subplots(2)
     plt_array[0].stem(keys, [histogram[key]["intensity"] for key in keys])
