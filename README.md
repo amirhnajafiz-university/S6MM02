@@ -29,7 +29,7 @@ Now enter the image path you want to transform:
 ## Result
 
 #### Input:
-<img src=".assets/image.png" />
+<img src="./assets/image.png" />
 
 #### Output:
-<img src="./results/output.png" />
+<img src="./result/output.png" />
