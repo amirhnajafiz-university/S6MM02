@@ -5,7 +5,9 @@ from utils import rgb2gray
 
 if __name__ == "__main__":
     path = "assets/image.png"  # input("[Enter the file path] > ")
-    pix = read_image_file(path)
+    pix, w, h = read_image_file(path)
+
+    print(f'Image read: {w}x{h}')
 
     pix = rgb2gray(pix)
 
