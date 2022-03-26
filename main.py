@@ -26,6 +26,16 @@ if __name__ == "__main__":
 
     print(f'Histogram validation: {len(pix) == counter}')
 
-    keys = histogram.keys()
-    plt.stem(keys, [histogram[key]["intensity"] for key in histogram.keys()])
+    keys = sorted(histogram.keys())
+
+    for index in range(len(keys)):
+        current = keys[index]
+        if index == 0:
+            histogram[current]["sum"] = histogram[current]["intensity"]
+        else:
+            histogram[current]["sum"] = histogram[current]["intensity"] + histogram[keys[index-1]]["sum"]
+
+    f, plt_array = plt.subplots(2)
+    plt_array[0].stem(keys, [histogram[key]["intensity"] for key in keys])
+    plt_array[1].stem(keys, [histogram[key]["sum"] for key in keys])
     plt.show()
