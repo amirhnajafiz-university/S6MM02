@@ -28,16 +28,29 @@ if __name__ == "__main__":
     img = Image.fromarray(np.asarray(newPix))
     img.show()
 
-    f, plt_array = plt.subplots(2)
-    plt_array[0].stem(keys, [histogram[key]["intensity"] for key in keys])
-    plt_array[0].set_title("Intensity of colors")
-    plt_array[0].set_xlabel("Colors")
-    plt_array[0].set_ylabel("Intensity")
+    newPix_histogram = create_histogram(newPix, w, h, 1)
+    newPix_keys = sorted(newPix_histogram.keys())
 
-    plt_array[1].stem(keys, [histogram[key]["sum"] for key in keys])
-    plt_array[1].set_title("Cumulative sum of colors")
-    plt_array[1].set_xlabel("Colors")
-    plt_array[1].set_ylabel("Cumulative sum")
+    f, plt_array = plt.subplots(2, 2)
+    plt_array[0][0].stem(keys, [histogram[key]["intensity"] for key in keys])
+    plt_array[0][0].set_title("Intensity of colors of input image")
+    plt_array[0][0].set_xlabel("Colors")
+    plt_array[0][0].set_ylabel("Intensity")
+
+    plt_array[0][1].stem(keys, [histogram[key]["sum"] for key in keys])
+    plt_array[0][1].set_title("Cumulative sum of colors of input image")
+    plt_array[0][1].set_xlabel("Colors")
+    plt_array[0][1].set_ylabel("Cumulative sum")
+
+    plt_array[1][0].stem(newPix_keys, [newPix_histogram[key]["intensity"] for key in newPix_keys])
+    plt_array[1][0].set_title("Intensity of colors of transformed image")
+    plt_array[1][0].set_xlabel("Colors")
+    plt_array[1][0].set_ylabel("Intensity")
+
+    plt_array[1][1].stem(newPix_keys, [newPix_histogram[key]["sum"] for key in newPix_keys])
+    plt_array[1][1].set_title("Cumulative sum of colors of transformed image")
+    plt_array[1][1].set_xlabel("Colors")
+    plt_array[1][1].set_ylabel("Cumulative sum")
 
     plt.subplot_tool()
     plt.show()
