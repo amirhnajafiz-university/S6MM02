@@ -2,11 +2,7 @@ from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
 from reader import read_image_file
-from utils import rgb2gray
-
-
-def transform_cell(c_sum, width, height, color_levels):  # the transform function
-    return round(((color_levels - 1) * c_sum) / (width * height))
+from utils import rgb2gray, create_histogram
 
 
 if __name__ == "__main__":
@@ -17,35 +13,8 @@ if __name__ == "__main__":
 
     pix = rgb2gray(pix)
 
-    histogram = {}
-    counter = 0
-
-    for row in pix:
-        for element in row:
-            if element in histogram.keys():
-                histogram[element]["intensity"] = histogram[element]["intensity"] + 1
-            else:
-                histogram[element] = {}
-                histogram[element]["intensity"] = 1
-                histogram[element]["sum"] = 0
-                histogram[element]["normalized_sum"] = 0
-
-        counter = counter + 1
-
-    print(f'Histogram validation: {len(pix) == counter}')
-
+    histogram = create_histogram(pix, w, h, 0)
     keys = sorted(histogram.keys())
-
-    for index in range(len(keys)):
-        current = keys[index]
-        if index == 0:
-            histogram[current]["sum"] = histogram[current]["intensity"]
-        else:
-            histogram[current]["sum"] = histogram[current]["intensity"] + histogram[keys[index-1]]["sum"]
-
-    total = len(keys)
-    for key in keys:  # transform each of the colors
-        histogram[key]["normalized_sum"] = transform_cell(histogram[key]["sum"], w, h, total)
 
     newPix = []
     for row in range(h):  # apply the transformation
