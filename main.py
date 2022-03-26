@@ -3,6 +3,10 @@ from reader import read_image_file
 from utils import rgb2gray
 
 
+def transform_cell(c_sum, width, height, color_levels):  # the transform function
+    return round(((color_levels - 1) * c_sum) / (width * height))
+
+
 if __name__ == "__main__":
     path = "assets/image.png"  # input("[Enter the file path] > ")
     pix, w, h = read_image_file(path)
@@ -36,6 +40,19 @@ if __name__ == "__main__":
             histogram[current]["sum"] = histogram[current]["intensity"]
         else:
             histogram[current]["sum"] = histogram[current]["intensity"] + histogram[keys[index-1]]["sum"]
+
+    total = len(keys)
+    for key in keys:  # transform each of the colors
+        histogram[key]["normalized_sum"] = transform_cell(histogram[key]["sum"], w, h, total)
+
+    newPix = []
+    for row in range(h):  # apply the transformation
+        temp = []
+        for col in range(w):
+            key = pix[row][col]
+            element = histogram.get(key)
+            temp.append(element["normalized_sum"])
+        newPix.append(temp)
 
     f, plt_array = plt.subplots(2)
     plt_array[0].stem(keys, [histogram[key]["intensity"] for key in keys])
