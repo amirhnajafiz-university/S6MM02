@@ -6,7 +6,7 @@ from utils import rgb2gray, create_histogram
 
 
 if __name__ == "__main__":
-    path = "assets/image.png"  # input("[Enter the file path] > ")
+    path = input("[Enter the file path] > ")
     pix, w, h = read_image_file(path)
 
     print(f'Image read: {w}x{h}')
