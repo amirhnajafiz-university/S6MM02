@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 from reader import read_image_file
 from utils import rgb2gray
 
@@ -21,3 +22,6 @@ if __name__ == "__main__":
         counter = counter + 1
 
     print(f'Histogram validation: {len(pix) == counter}')
+
+    plt.stem(histogram.keys(), histogram.values())
+    plt.show()
