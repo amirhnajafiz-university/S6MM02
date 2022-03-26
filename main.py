@@ -15,13 +15,17 @@ if __name__ == "__main__":
     for row in pix:
         for element in row:
             if element in histogram.keys():
-                histogram[element] = histogram[element] + 1
+                histogram[element]["intensity"] = histogram[element]["intensity"] + 1
             else:
-                histogram[element] = 1
+                histogram[element] = {}
+                histogram[element]["intensity"] = 1
+                histogram[element]["sum"] = 0
+                histogram[element]["normalized_sum"] = 0
 
         counter = counter + 1
 
     print(f'Histogram validation: {len(pix) == counter}')
 
-    plt.stem(histogram.keys(), histogram.values())
+    keys = histogram.keys()
+    plt.stem(keys, [histogram[key]["intensity"] for key in histogram.keys()])
     plt.show()
