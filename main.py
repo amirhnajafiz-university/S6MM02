@@ -37,5 +37,14 @@ if __name__ == "__main__":
 
     f, plt_array = plt.subplots(2)
     plt_array[0].stem(keys, [histogram[key]["intensity"] for key in keys])
+    plt_array[0].set_title("Intensity of colors")
+    plt_array[0].set_xlabel("Colors")
+    plt_array[0].set_ylabel("Intensity")
+
     plt_array[1].stem(keys, [histogram[key]["sum"] for key in keys])
+    plt_array[1].set_title("Cumulative sum of colors")
+    plt_array[1].set_xlabel("Colors")
+    plt_array[1].set_ylabel("Cumulative sum")
+
+    plt.subplot_tool()
     plt.show()
