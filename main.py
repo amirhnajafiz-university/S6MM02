@@ -25,7 +25,7 @@ if __name__ == "__main__":
             temp.append(element["normalized_sum"])
         newPix.append(temp)
 
-    img = Image.fromarray(np.asarray(newPix))
+    img = Image.fromarray((np.asarray(newPix) * 255).astype(np.uint8))
     img.show()
 
     newPix_histogram = create_histogram(newPix, w, h, 1)
